@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 
 export default function Store() {
     const [shoes] = useState([
@@ -77,6 +77,47 @@ export default function Store() {
         borderRadius: '4px',
         cursor: 'pointer'
     };
+    const aftercheckoutformstyle = {
+        width: '100%',
+         padding: '10px',
+        marginBottom: '10px',
+        borderRadius: '4px',
+        border: '1px solid #ccc'
+    };
+
+    const [user, setUser] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        const saved = localStorage.getItem('user');
+        if (saved) {
+            setUser(JSON.parse(saved));
+        }
+    }, []);
+
+    const handleLogin = () => {
+        if (email && password) {
+            setUser({ email: email });
+            localStorage.setItem('user', JSON.stringify({ email: email }));
+            setEmail('');
+            setPassword('');
+        }
+    };
+
+    if (!user) {
+        return (
+            <div>
+                <input
+                    type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <input
+                    type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <button onClick={handleLogin}>Login</button>
+            </div>
+        );
+    }
+
+
 
     if (orderConfirm) {
         return (
@@ -93,9 +134,10 @@ export default function Store() {
             <div style={{ maxWidth: '400px', margin: '50px auto' }}>
                 <button onClick={() => setCheckout(false)} style={removeButtonStyle}>Back</button>
                 <h2>Checkout</h2>
-                <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} style={{ width: '100%', padding: '10px', marginBottom: '10px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} style={{ width: '100%', padding: '10px', marginBottom: '10px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleChange} style={{ width: '100%', padding: '10px', marginBottom: '10px', borderRadius: '4px', border: '1px solid #ccc' }} />
+                <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} style={aftercheckoutformstyle}/>
+
+                <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} style={aftercheckoutformstyle}/>
+                <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleChange} style={aftercheckoutformstyle}/>
                 <h3>Total: ${totalPrice}</h3>
                 <button onClick={placeOrder} style={addButtonStyle}>Place Order</button>
             </div>
@@ -104,6 +146,11 @@ export default function Store() {
 
     return (
         <div>
+            <button onClick={() => {
+                setUser(null);
+                localStorage.removeItem('user');
+            }}>Logout</button>
+
             <h1>Sneaker Store</h1>
 
             <div>
@@ -138,6 +185,8 @@ export default function Store() {
             ))}
             <h3>Total: ${totalPrice}</h3>
             {cart.length > 0 && <button onClick={() => setCheckout(true)} style={checkoutButtonStyle}>Checkout</button>}
+
         </div>
     );
+
 }
