@@ -4,14 +4,14 @@ import './App.css';
 export default function Store() {
 
 
-    const [shoes, setShoes] = useState([
-        { id: 1, name: 'Air Max', price: 120, brand: 'Nike' },
-        { id: 2, name: 'Ultra Boost', price: 140, brand: 'Adidas' },
-        { id: 3, name: 'Old Skool', price: 80, brand: 'Vans' },
-        { id: 4, name: '990 v6', price: 200, brand: 'New Balance' },
-        { id: 5, name: 'Ultra Boost 22', price: 150, brand: 'Adidas' },
-        { id: 6, name: 'Adidas Yeezy', price: 350, brand: 'Adidas' },
-        { id: 7, name: 'Triple Sneakers', price: 1350, brand: 'Balenciaga' }
+    const [shoes] = useState([
+        { id: 1, name: 'Air Max', price: 120, brand: 'Nike', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ff0000%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ENike Air Max%3C/text%3E%3C/svg%3E' },
+        { id: 2, name: 'Ultra Boost', price: 140, brand: 'Adidas', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%230066cc%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EAdidas Ultra Boost%3C/text%3E%3C/svg%3E' },
+        { id: 3, name: 'Old Skool', price: 80, brand: 'Vans', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23000000%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EVans Old Skool%3C/text%3E%3C/svg%3E' },
+        { id: 4, name: '990 v6', price: 200, brand: 'New Balance', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23999999%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ENew Balance 990%3C/text%3E%3C/svg%3E' },
+        { id: 5, name: 'Ultra Boost 22', price: 150, brand: 'Adidas', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%2300aa00%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EUltra Boost 22%3C/text%3E%3C/svg%3E' },
+        { id: 6, name: 'Adidas Yeezy', price: 350, brand: 'Adidas', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ffaa00%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EYeezy%3C/text%3E%3C/svg%3E' },
+        { id: 7, name: 'Triple Sneakers', price: 1350, brand: 'Balenciaga', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23aa00ff%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ETriple Sneakers%3C/text%3E%3C/svg%3E' }
     ]);
     //useState : is like a state file. stores data.
     //useEffect : API calls, let's say during logins' no need to login everytime since it retrieves info from local..
@@ -88,7 +88,7 @@ export default function Store() {
         return (
             <div className="loginContainer">
                 <div className="loginForm">
-                    <h1>Sneaker Store</h1>
+                    <h1 style={{fontSize: '3.5rem', background: 'linear-gradient(135deg, #ff6b6b, #4ecdc4, #ffe66d)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 8px 16px rgba(0,0,0,0.2)', animation: 'pulse 2s infinite'}}>Sneaker Store</h1>
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="formInput"/>
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="formInput"/>
                     <button onClick={handleLogin} className="checkoutButton">Login</button>
@@ -128,10 +128,10 @@ export default function Store() {
     }
 
     return (
-        <div className="pageContainer">
+        <div className="pageContainer" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)', backgroundSize: '400% 400%', animation: 'gradientShift 15s ease infinite', minHeight: '100vh'}}>
             <div className="header">
                 <button onClick={() => { setUser(null); localStorage.removeItem('user'); }}>Logout</button>
-                <h1>Sneaker Store</h1>
+                <h1 style={{fontSize: '3.5rem', background: 'linear-gradient(135deg, #ff6b6b, #4ecdc4, #ffe66d)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 8px 16px rgba(0,0,0,0.2)', animation: 'pulse 2s infinite'}}>Sneaker Store</h1>
             </div>
 
             <div className="filterSection">
@@ -167,9 +167,10 @@ export default function Store() {
                 <div className="productsGrid">
                     {searchFiltered.map(shoe => (
                         <div key={shoe.id} className="productCard">
+                            <img src={shoe.image} alt={shoe.name} style={{ width: '100%', height: '250px', objectFit: 'cover' }} />
                             <h3>{shoe.name}</h3>
-                            <p className="brand">{shoe.brand}</p>
-                            <p className="price">${shoe.price}</p>
+                            <p><strong>Brand:</strong> {shoe.brand}</p>
+                            <p><strong>Price:</strong> ${shoe.price}</p>
                             <button onClick={() => addToCart(shoe)} className="addButton">Add to Cart</button>
                         </div>
                     ))}

@@ -1,12 +1,25 @@
 .pageContainer {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   min-height: 100vh;
   padding: 20px;
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .header {
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 20px;
   margin-bottom: 30px;
@@ -14,6 +27,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  backdrop-filter: blur(10px);
 }
 
 .header button {
@@ -23,6 +37,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .filterSection {
@@ -44,13 +59,16 @@
   width: 100%;
   max-width: 500px;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 4px;
   font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .productsSection h2 {
   margin-bottom: 20px;
+  color: white;
+  font-size: 28px;
 }
 
 .productsGrid {
@@ -61,38 +79,51 @@
 }
 
 .productCard {
-  background-color: white;
-  border: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
 }
 
 .productCard h3 {
-  margin: 0 0 10px 0;
+  margin: 10px 0 5px 0;
+  color: #333;
 }
 
 .brand {
   color: #666;
+  font-size: 14px;
   margin: 5px 0;
 }
 
 .price {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  color: #333;
+  color: #2196F3;
   margin: 10px 0;
 }
 
 .cartSection {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.95);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cartSection h2 {
+  margin-top: 0;
+  color: #333;
 }
 
 .cartItems {
   margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .cartItem {
@@ -101,6 +132,7 @@
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #eee;
+  color: #333;
 }
 
 .buttonStyle {
@@ -108,20 +140,20 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #f0f0f0;
-  color: #000;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
   font-weight: normal;
   transition: all 0.3s ease;
 }
 
 .buttonStyle.active {
   background-color: #333;
-  color: #fff;
+  color: white;
   font-weight: bold;
 }
 
 .addButton {
-  padding: 8px 15px;
+  padding: 10px 15px;
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -129,6 +161,7 @@
   cursor: pointer;
   width: 100%;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .removeButton {
@@ -149,6 +182,7 @@
   cursor: pointer;
   width: 100%;
   margin-top: 15px;
+  font-weight: bold;
 }
 
 .formInput {
@@ -156,8 +190,9 @@
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 .checkoutContainer {
@@ -168,16 +203,22 @@
 }
 
 .checkoutForm {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.95);
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
 }
 
 .checkoutForm h2 {
   margin-top: 0;
+  color: #333;
+}
+
+.checkoutForm h3 {
+  color: #333;
+  margin: 15px 0;
 }
 
 .loginContainer {
@@ -185,13 +226,39 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .loginForm {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.95);
   padding: 40px;
   border-radius: 8px;
   width: 100%;
   max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.confirmationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.confirmationBox {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.confirmationBox h2 {
+  color: #4CAF50;
+  margin-bottom: 15px;
+}
+
+.confirmationBox p {
+  color: #333;
 }
