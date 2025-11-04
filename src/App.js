@@ -136,6 +136,7 @@ export default function Store() {
         );
     }
 
+
     // Show checkout form if checkout button clicked
     if (checkout) {
         return (
