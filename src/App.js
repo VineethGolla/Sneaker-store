@@ -3,7 +3,7 @@ import './App.css';
 
 export default function Store() {
 
-
+    // Product inventory with id, name, price, brand, and SVG image data
     const [shoes] = useState([
         { id: 1, name: 'Air Max', price: 120, brand: 'Nike', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ff0000%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ENike Air Max%3C/text%3E%3C/svg%3E' },
         { id: 2, name: 'Ultra Boost', price: 140, brand: 'Adidas', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%230066cc%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EAdidas Ultra Boost%3C/text%3E%3C/svg%3E' },
@@ -13,25 +13,41 @@ export default function Store() {
         { id: 6, name: 'Adidas Yeezy', price: 350, brand: 'Adidas', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23ffaa00%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3EYeezy%3C/text%3E%3C/svg%3E' },
         { id: 7, name: 'Triple Sneakers', price: 1350, brand: 'Balenciaga', image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23aa00ff%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2240%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-weight=%22bold%22%3ETriple Sneakers%3C/text%3E%3C/svg%3E' }
     ]);
-    //useState : is like a state file. stores data.
-    //useEffect : API calls, let's say during logins' no need to login everytime since it retrieves info from local..
 
+    // Filter by brand selection
     const [filter, setFilter] = useState('all');
+
+    // Filter by price range
     const [priceFilter, setPriceFilter] = useState(null);
+
+    // Shopping cart items with quantity
     const [cart, setCart] = useState([]);
+
+    // Toggle checkout form display
     const [checkout, setCheckout] = useState(false);
+
+    // Form data for checkout (name, email, address)
     const [formData, setFormData] = useState({ name: '', email: '', address: '' });
+
+    // Show order confirmation message
     const [orderConfirm, setOrderConfirm] = useState(false);
+
+    // Search input for product name or brand
     const [searchTerm, setSearchTerm] = useState('');
 
+    // Apply brand filter to products
     const filtered = filter === 'all' ? shoes : shoes.filter(s => s.brand === filter);
+
+    // Apply price filter to already filtered products
     const finalFiltered = priceFilter ? filtered.filter(s => s.price <= priceFilter) : filtered;
 
+    // Apply search filter to name and brand
     const searchFiltered = finalFiltered.filter(s =>
         s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         s.brand.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Add product to cart or increase quantity if already exists
     const addToCart = (shoe) => {
         const existing = cart.find(item => item.id === shoe.id);
         if (existing) {
@@ -43,16 +59,20 @@ export default function Store() {
         }
     };
 
+    // Remove product from cart by id
     const removeFromCart = (id) => {
         setCart(cart.filter(item => item.id !== id));
     };
 
+    // Calculate total price of all items in cart
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+    // Handle form input change for checkout form
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Validate form and place order
     const placeOrder = () => {
         if (formData.name && formData.email && formData.address) {
             setOrderConfirm(true);
@@ -62,12 +82,16 @@ export default function Store() {
         }
     };
 
-
+    // Store logged-in user state
     const [user, setUser] = useState(null);
+
+    // Email input for login
     const [email, setEmail] = useState('');
+
+    // Password input for login
     const [password, setPassword] = useState('');
 
-
+    // Load user from localStorage on component mount
     useEffect(() => {
         const saved = localStorage.getItem('user');
         if (saved) {
@@ -75,6 +99,7 @@ export default function Store() {
         }
     }, []);
 
+    // Authenticate user and save to localStorage
     const handleLogin = () => {
         if (email && password) {
             setUser({ email: email });
@@ -84,6 +109,7 @@ export default function Store() {
         }
     };
 
+    // Show login page if user not authenticated
     if (!user) {
         return (
             <div className="loginContainer">
@@ -97,8 +123,7 @@ export default function Store() {
         );
     }
 
-
-
+    // Show order confirmation page after successful checkout
     if (orderConfirm) {
         return (
             <div className="confirmationContainer">
@@ -111,6 +136,7 @@ export default function Store() {
         );
     }
 
+    // Show checkout form if checkout button clicked
     if (checkout) {
         return (
             <div className="checkoutContainer">
@@ -127,6 +153,7 @@ export default function Store() {
         );
     }
 
+    // Main shopping page with products, filters, and cart
     return (
         <div className="pageContainer" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)', backgroundSize: '400% 400%', animation: 'gradientShift 15s ease infinite', minHeight: '100vh'}}>
             <div className="header">
@@ -134,6 +161,7 @@ export default function Store() {
                 <h1 style={{fontSize: '3.5rem', background: 'linear-gradient(135deg, #ff6b6b, #4ecdc4, #ffe66d)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 8px 16px rgba(0,0,0,0.2)', animation: 'pulse 2s infinite'}}>Sneaker Store</h1>
             </div>
 
+            {/* Brand and price filter buttons */}
             <div className="filterSection">
                 <div className="brandFilters">
                     <button onClick={() => setFilter('all')} className={filter === 'all' ? 'buttonStyle active' : 'buttonStyle'}>All</button>
@@ -152,6 +180,7 @@ export default function Store() {
                 </div>
             </div>
 
+            {/* Search bar for filtering by product name or brand */}
             <div className="searchSection">
                 <input
                     type="text"
@@ -162,6 +191,7 @@ export default function Store() {
                 />
             </div>
 
+            {/* Display filtered products in grid */}
             <div className="productsSection">
                 <h2>Products</h2>
                 <div className="productsGrid">
@@ -177,6 +207,7 @@ export default function Store() {
                 </div>
             </div>
 
+            {/* Display cart items and total price */}
             <div className="cartSection">
                 <h2>Cart ({cart.length})</h2>
                 <div className="cartItems">
